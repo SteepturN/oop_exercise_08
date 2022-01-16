@@ -17,7 +17,7 @@
 #include <sstream>
 
 int main(int argc, char *argv[]) {
-	int max_size;
+	std::size_t max_size;
 	if(argc != 2) {
 		std::cout << "not enough arguments" << std::endl;
 		return -1;
@@ -48,7 +48,8 @@ int main(int argc, char *argv[]) {
 
 	std::string help_message = "You can use\n\
 --add figure (square, triangle, octahendron): add *s || t || o*\n\
-    *(point) 3 times, for octahedron 8* *position to put in*\n\
+    *(point) 3 times for square, for octahedron and triangle center\
+ position,\n radius, starting angle* *position to put in*\n \
 --help for this list of commands\n\
 --exit\n";
 	char ch(' ');
@@ -80,7 +81,6 @@ int main(int argc, char *argv[]) {
 			}
 
 			Figure<double>* f;
-			bool success = false;
 			std::set<std::string> valid_figures{"t", "o", "s"};
 			char figure_type[3];
 			if(get_command(valid_figures, figure_type) != VALID_INPUT) {
@@ -113,8 +113,8 @@ int main(int argc, char *argv[]) {
 					delete f;
 				}
 			}
-			int index;
-			if(get_value<int>(index) != VALID_INPUT || index > buff.size()) {
+			std::size_t index;
+			if(get_value<std::size_t>(index) != VALID_INPUT || index > buff.size()) {
 				std::cout << "wrong input\n";
 				delete f;
 			} else {
